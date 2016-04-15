@@ -28,4 +28,13 @@
 
 <br>
 
-<%= link_to 'New Product', new_product_path %>
+<%= link_to 'New Product', new_product_path, :class=>"newproduct" %>
+
+
+
+
+<% product_number = 1 %>
+<% 5.times do %>
+  <p>This is product number <%= product_number %></p>
+  <% product_number = product_number + 1 %>
+<% end %>
