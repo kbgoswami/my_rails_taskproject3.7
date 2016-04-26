@@ -8,7 +8,7 @@
   <% @products.each do |product| %>
     <div class="col-sm-2 col-md-4">
       <h1><td><%= product.name %></td></h1>
-
+     
       <p><td><%= image_tag(product.image_url, class: "img-responsive") %></td></p>
       <p><td><%= product.description %></td></p>
       <p><td><%= product.color %></td></p>
@@ -25,4 +25,4 @@
 <div class="new-product">
 <%= link_to 'Add new product', new_product_path %>
 </div>
- `
+ 
