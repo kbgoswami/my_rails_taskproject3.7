@@ -8,6 +8,10 @@ class ProductsController < ApplicationController
     
   end
 
+  def index
+    @carouselIndicators = CarouselIndicator.all
+  end
+
   # GET /products/1
   # GET /products/1.json
   def show
