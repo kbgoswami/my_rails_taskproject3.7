@@ -1,9 +1,66 @@
-<h1>StaticPages#contact</h1>
-<h2>Contact Us</h2>
 
-<div class="container-fluid id="address">
- <ul>
-  <li>1234 Lost Lane, Found St, Heaven</li>
-  <li>Phone (123)456-7890</li>
- </ul>
-</div>
+  <div class="container-fluid anchor contactus" id="contact">
+    <div class="header-contact" id="contact">     
+        <h1>Bay Area Web Designers Contact Information</h1>
+    </div><!--header-->
+
+    <div class="contact-us">
+          
+
+
+          <!--Google Map API Start -->
+
+          <div id="map"></div>
+              
+          
+
+      
+        <div class="address">
+          <ul>
+            <li><span class="glyphicon glyphicon-road"></span>  Address:1234 Lost St.,Found City, USA</li>
+            <li><span class="glyphicon glyphicon-earphone"></span>
+            1-222-333-4444</li>
+            <li><span class="glyphicon glyphicon-send"></span>
+            <a href="mailto:kbgoswami@comcast.net"> contact@support.com</a></span></li>
+          </ul>
+        </div><!--end address column"-->
+        
+      </div><!--contact-us-->
+  </div><!--jumbotron--> 
+
+    <!--contact forms start-->
+<form>
+
+  <div class="form-group">
+
+    <label for="inputEmail">Email address</label>
+    <input type="email" required="required" class="form-control" id="inputEmail" placeholder="Email">
+  </div>
+  <div class="form-group">
+    <label for="inputPassword">Password</label>
+    <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+  </div><br>
+  <div class="form-group">
+    <label for="input-text">Text</label>
+    <textarea style="resize: none" cols="62" rows="5" placeholder="Your message here" class="form-control" type="text" id="input-text" minlength="2"
+    maxlength="200" ></textarea>
+    
+    <p id="visible-comment"></p>
+    
+    <p id="notice">The max. character limit is 200</p>
+    <p id="count">Number of characters typed</p>
+    <p id="char-count"></p>
+  </div>
+
+  <div class="form-group">
+  
+    <label for="inputFile">File input</label>
+    
+    <input type="file" id="inputFile"><br>
+    <button type="submit" class="btn btn-success" id="submitBtn">Submit</button>
+  </div>
+  </form>
+  <div class="photo prettywomen" data-stellar-background-ratio="0.5"><span>Just Chill</span>
+      </div>
+</div><!--end container-fluid anchor contactus-->      
+

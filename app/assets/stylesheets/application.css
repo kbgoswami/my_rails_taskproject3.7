@@ -18,46 +18,30 @@ body{
  	background-color: #99ada9;
 
  }
-nav {
-	
-	background-color: #ccf7be;
-	height: 3.5em;
-	margin-top: 0em;
+
+.navbarFluid {
+  height: 3.5em;
+	padding-bottom: 1em;
+	background-color: #436c40;
+	width: 100%;
 }
 
-nav li {
-	text-decoration: none;
-	display: inline-block;
-	padding: 1em;
-	font-size: 1.4em;
-	margin-top: -.5em;
+.nav {
+	margin-right: 2em;
+}
+
+.navbar-right ul li {
+	font-size: 2em;
+	padding-top: .5em;
+	font-family: 'Arial Narrow', Arial, sans-serif;
+	font-size: 18px;
+	font-style: normal;
+	font-variant: small-caps;
+	font-weight: 400;
+	line-height: 12px
 
 }
 
-nav ul li {
-	text-decoration: none;
-	display: inline-block;
-	padding: 2em;
-	font-size: 1.4em;
-	margin-top: -4.4em;
-	float: right;
-	color: blue;
-}
-
-
-
-footer {
-	background-color: green;
-	color:red;
-	margin-top: 26em;
-	height: 3em;
-	text-align: right;
-	padding-right: 3em;
-	padding-top: .7em;
-	font-size: 1.6em;
-	padding-bottom: 2em;
-	height: 2em;
-}
 
 h1 {
 	font-size: 2em;
@@ -77,4 +61,36 @@ h1 {
 	font-size: 2em;
 	font-style: italic;
 }
+
+/*-------start footer---------------------*/
+
+.footer {
+	height: 3em;
+	background-color: #c98bd9;
+	margin-bottom: 0;
+}
+
+
+.copyright {
+	float: right;
+	margin-right: 2em;
+	padding-top: 0.7em;
+	
+	color: red;
+	font-style: italic;
+}
+
+.social {
+	margin-left: 2em;
+	
+	display: inline-block;
+}
+
+.fb-like {
+
+	display: inline-block;
+	margin-left: 3em;
+
+}
+
 

@@ -6,11 +6,7 @@ class StaticPagesController < ApplicationController
   end
 
   def landing_page
-  	@products = Product.limit(4)
-  	
-  end
+  @products = Product.limit(4)
+end
 
-  def landing_page
-  	@carouselIndicators = carouselIndicator.limit(4)
-  end
 end
