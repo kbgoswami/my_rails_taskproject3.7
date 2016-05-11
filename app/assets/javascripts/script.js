@@ -108,67 +108,7 @@
         } else {
           $("#char-count, #input-text").css("color", "green");
         };
-
       });
-
-        //works.js-------------
-        
-        
-var works = [
-  {
-    title: "Wondering",
-    pic:  "https://www.petfinder.com/wp-content/uploads/2012/09/Blog-Kitty-Cam-solo.jpg",
-    site:  "http://www.disneyland.com"
-  },
-  {
-    title: "Cute",
-    pic: "http://www.animal-photography.com/thumbs/red_tabby_long_hair_kitten_~AP-0UJFTC-TH.jpg",
-    site: "https://www.cutecats.com"
-  },
-  {
-    title: "Loving",
-    pic:  "http://www.animal-photography.com/thumbs/silver_tabby_kittens~AP-0JO6Y9-TH.jpg",
-    site: "http://www.youramazingplaces.com"
-  },
-   {
-    title: "Praying",
-    pic:  "http://www.animal-photography.com/thumbs/silver_tabby_kitten_looking_up~AP-0DLVMB-TH.jpg",
-    site: "https://www.youtube.com/watch?v=Y4DgESWtCus"
-  }
-];
-console.log(works);
-
-for(var i = 0; i < works.length; ++i) {
-  $("#work").append("\
-  <div class='col-sm-6 col-md-3'>\
-    <a href='"+ works[i].site + "' class='work-img'>\
-      <img class='img-responsive' src='" + works[i].pic + "'>\
-       <span class='info'><p class='proj-title'>This one is</p>" + works[i].title + "</span>\
-       <span class='sites' src=" + works[i].site + ">" + works[i].site + "</span>\
-    </a>\
-  </div>\
-");
-
-  $(".work-img").mouseenter(function() {
-    $(".info", this).show();
-    $(".sites", this).show();
-  }).mouseleave(function() {
-    $(".info", this).hide();
-    $(".sites", this).hide();
-  });
-
-  
-  var images = $("#work img");
-  
-  if(i === 0){
-      $(images[i]).css("border", "2px solid DodgerBlue");
-  } else if(i === 3){
-      $(images[i]).css("border", "2px solid salmon");
-  } else {
-    $(images[i]).css("border", "4px solid green")
-  };
- };
-
  });
       
     

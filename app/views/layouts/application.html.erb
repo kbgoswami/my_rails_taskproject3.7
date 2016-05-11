@@ -7,13 +7,10 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-   <script type="text/javascript" src="assets/javascripts/script.js"></script>
+   
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= csrf_meta_tags %>
 
-</head>
-
-  <%= csrf_meta_tags %>
 </head>
 <body>
 
@@ -39,13 +36,7 @@
          </div><!--end navbar-collapse-->
     </nav><!--end nav-->
 
-    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="js/jquery.stellar.min.js"></script>
-   
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKBIKgim517vv3-hnyvxD5C11DuPxJxFQ&callback=initMap"
-    async defer></script>
-
+    
 
 <%= yield %>
 

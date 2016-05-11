@@ -57,10 +57,12 @@ h1 {
 
 .new-product {
 	margin-left: 3em;
-	margin-top: 3em;
-	font-size: 2em;
+	margin-top: 0;
+	font-size: 1.6em;
 	font-style: italic;
+	padding-bottom: 2em;
 }
+
 
 /*-------start footer---------------------*/
 
