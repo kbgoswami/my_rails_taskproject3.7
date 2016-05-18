@@ -27,11 +27,18 @@
        </div><!--end navbar-header--> 
          <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right"> 
+            <li><%= form_tag("/products", method: "get", class: "navbar-form") do %>
+            <%= label_tag(:q, "Search for:") %>
+            <%= text_field_tag(:q) %>
+            <%= submit_tag("Search", class: "btn btn-default") %>
+            <% end %>
+            </li>
             <li><%= link_to "Products", products_path %></li>  
             <li><%= link_to "About", static_pages_about_path %></li>
             <li><%= link_to "Home", static_pages_index_path %></li>
             <li><%= link_to "Contact", static_pages_contact_path %></li>
             <li><%= link_to "Featured Products", static_pages_landing_page_path %></li>
+
           </ul>
          </div><!--end navbar-collapse-->
     </nav><!--end nav-->
@@ -41,7 +48,7 @@
 <%= yield %>
 
 <!--Start footer-->
-  
+      <footer>
         <div class="copyright">
          &copy;Bay Area Web Designers: 2016
         </div>
@@ -52,6 +59,7 @@
         <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="standard" data-action="like" data-show-faces="true">
         </div>
        </div> 
+       </footer>
      
       <!--end footer-->
 
