@@ -29,38 +29,28 @@
   </div><!--jumbotron--> 
 
     <!--contact forms start-->
-<form>
 
-  <div class="form-group">
+<%= flash[:notice] %>
 
-    <label for="inputEmail">Email address</label>
-    <input type="email" required="required" class="form-control" id="inputEmail" placeholder="Email">
+<%= form_tag("/static_pages/thank_you") do %>
+<div class="row">
+  <div class="col-md-4">
+    <div class="form-group">
+      <%= label_tag :name, "Name" %>
+      <%= text_field_tag :name, nil, class: "form-control", placeholder: "Enter Name" %>
+    </div>      
+    <div class="form-group">
+      <%= label_tag :email, "Email Address" %>
+      <%= text_field_tag :email, nil, class: "form-control", placeholder: "Enter Email" %>
+    </div>
+    <div class="form-group">
+      <%= label_tag :message, "Message" %>
+      <%= text_area_tag :message, nil, class: "form-control", placeholder: "Enter Message" %>
+    </div>      
   </div>
-  <div class="form-group">
-    <label for="inputPassword">Password</label>
-    <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-  </div><br>
-  <div class="form-group">
-    <label for="input-text">Text</label>
-    <textarea style="resize: none" cols="62" rows="5" placeholder="Your message here" class="form-control" type="text" id="input-text" minlength="2"
-    maxlength="200" ></textarea>
-    
-    <p id="visible-comment"></p>
-    
-    <p id="notice">The max. character limit is 200</p>
-    <p id="count">Number of characters typed</p>
-    <p id="char-count"></p>
-  </div>
+</div>
+<%= submit_tag "Send" %>   
+<% end %>
 
-  <div class="form-group">
-  
-    <label for="inputFile">File input</label>
-    
-    <input type="file" id="inputFile"><br>
-    <button type="submit" class="btn btn-success" id="submitBtn">Submit</button>
-  </div>
-  </form>
-  <div class="photo backgroundbike" data-stellar-background-ratio="0.5"><span>Bikers Rock</span>
-      </div>
 </div><!--end container-fluid anchor contactus-->      
 
