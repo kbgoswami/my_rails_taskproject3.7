@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  
 
   # GET /products
   # GET /products.json
@@ -33,6 +34,8 @@ class ProductsController < ApplicationController
 
   # POST /products
   # POST /products.json
+
+
   def create
     @product = Product.new(product_params)
 
@@ -63,7 +66,11 @@ class ProductsController < ApplicationController
 
   # DELETE /products/1
   # DELETE /products/1.json
+
+  before_filter :authenticate_user!
+
   def destroy
+     
     @product.destroy
     respond_to do |format|
       format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }

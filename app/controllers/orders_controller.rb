@@ -13,6 +13,7 @@ class OrdersController < ApplicationController
 	end
 
 	def destroy
+		
 	end
 
 end
