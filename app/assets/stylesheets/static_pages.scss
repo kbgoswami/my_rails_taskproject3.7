@@ -212,8 +212,9 @@ h1, h2 {
 	color: blue;
 }
 
-
-
+.footer {
+	margin-top: 20em;
+}
 /*---------------Contact Ends Here-----------------------*/
 
 /*--------------About Start Here-------------------*/
@@ -241,6 +242,10 @@ h1, h2 {
 	background-image: image-url("homepic.jpg");
 	margin-top: 8em;
 
+}
+
+.product_info {
+	float: left;
 }
 
 
