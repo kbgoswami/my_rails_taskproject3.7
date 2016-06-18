@@ -11,7 +11,8 @@ end
 
 group :development, :test do
 	gem 'sqlite3'
-  gem 'byebug'
+  	gem 'byebug'
+  	gem "factory_girl_rails", "~> 4.0"
  
   
 
@@ -59,4 +60,6 @@ gem 'cancancan'
 
 ## Gemfile for Rails 3+, Sinatra, and Merb
 gem 'will_paginate', '~> 3.1.0'
+
+
 
