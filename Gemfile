@@ -13,9 +13,10 @@ group :development, :test do
 	gem 'sqlite3'
   	gem 'byebug'
   	gem "factory_girl_rails", "~> 4.0"
- 
-  
-
+    gem 'guard'
+    gem 'guard-rspec', require: false
+    gem 'spork-rails' 
+    gem 'guard-spork'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   
