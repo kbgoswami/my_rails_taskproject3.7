@@ -17,8 +17,10 @@ group :development, :test do
     gem 'guard-rspec', require: false
     gem 'spork-rails' 
     gem 'guard-spork'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
+    # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+    gem 'spring'
+    gem 'stripe'
+
   
 end
 
