@@ -7,6 +7,8 @@ gem 'rails', '4.2.6'
 group :production do
   gem 'rails_12factor'
 	gem 'pg'
+
+
 end
 
 group :development, :test do
@@ -19,8 +21,6 @@ group :development, :test do
     gem 'guard-spork'
     # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
     gem 'spring'
-    gem 'stripe'
-    gem "stripe_event"
 
   
 end
@@ -30,6 +30,7 @@ group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 end
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -64,6 +65,12 @@ gem 'cancancan'
 
 ## Gemfile for Rails 3+, Sinatra, and Merb
 gem 'will_paginate', '~> 3.1.0'
+gem 'stripe'
+
+
+
+
+
 
 
 
