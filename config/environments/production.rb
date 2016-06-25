@@ -48,6 +48,7 @@ Rails.application.configure do
   # when problems arise.
   config.log_level = :debug
 
+  Rails.logger.level = 2
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
 
