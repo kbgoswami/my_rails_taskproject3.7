@@ -8,7 +8,7 @@ class ProductsController < ApplicationController
 
 
   def index
-    byebug
+    
     if params[:q]
       search_term = params[:q]
       if Rails.env.development?
