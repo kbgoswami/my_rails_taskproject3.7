@@ -1,7 +1,7 @@
 <div class="container-fluid product-list">
   <div class="row">
       <h1><td><%= product.name %></td></h1>
-      <p><td><%= image_tag(product.image_url, class: "img-responsive") %></td></p>
+      <p><td><%= image_tag(product.image_url, class: "img-responsive img-zoom", width: "350") %></td></p>
       <p><td><%= product.description %></td></p>
       <p><td><%= product.color %></td></p>
       <p><td>$<%= product.price %></td></p>
