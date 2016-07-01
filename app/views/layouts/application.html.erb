@@ -28,7 +28,11 @@
          <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right"> 
             <li><%= form_tag("/products", method: "get", class: "navbar-form") do %>
-            <%= label_tag(:q, "Search for:") %>
+
+           
+              <%= label_tag(:q, "Search for:") %>
+          
+
             <%= text_field_tag(:q) %>
             <%= submit_tag("Search", class: "btn btn-default") %>
             <% end %>
