@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
 
   # GET /products
   # GET /products.json
-
+  respond_to :json, :html
 
   def index
     
@@ -19,6 +19,7 @@ class ProductsController < ApplicationController
     else
       @products = Product.all
     end
+    respond_with @products
   end
 
   
@@ -93,4 +94,5 @@ class ProductsController < ApplicationController
     def product_params
       params.require(:product).permit(:name, :description, :price, :image_url, :color)
     end
+
 end
