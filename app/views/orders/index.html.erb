@@ -10,9 +10,8 @@
       <option ng-repeat="product in products" value="{{product.id}}">{{product.name}}</option>
     </select>
       <input type="number" step="0.01" class="form-control" placeholder="Total" ng-model="newOrder.total">
-      <input type="number" class="form-control" ng-model="newOrder.product.id">
       
-      <input type="submit" value="+" class="btn btn-success">
+      <input type="submit" value="+" class="form-control btn">
     </form>
 
 
