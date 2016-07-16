@@ -7,6 +7,7 @@ gem 'rails', '4.2.6'
 group :production do
   gem 'rails_12factor'
 	gem 'pg'
+  gem 'dalli'
 
 
 end
@@ -67,7 +68,7 @@ gem 'cancancan'
 gem 'will_paginate', '~> 3.1.0'
 gem 'stripe'
 gem 'angularjs-rails'
-gem 'dalli'
+
 
 
 
