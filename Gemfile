@@ -67,6 +67,7 @@ gem 'cancancan'
 gem 'will_paginate', '~> 3.1.0'
 gem 'stripe'
 gem 'angularjs-rails'
+gem 'dalli'
 
 
 
