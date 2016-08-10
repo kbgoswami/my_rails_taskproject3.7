@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
   post 'static_pages/thank_you'
 
+  post 'payments/create'
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -26,6 +28,8 @@ Rails.application.routes.draw do
    root 'static_pages#index'
     resources :orders, only: [:index, :show, :create, :destroy]
 
+   mount ActionCable.server => '/cable'
+  
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

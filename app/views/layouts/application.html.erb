@@ -3,8 +3,9 @@
 <head>
   <title>MyRailsTaskproject37</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= action_cable_meta_tag %>
 
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
@@ -55,19 +56,18 @@
           </ul>
          </div><!--end navbar-collapse-->
     </nav><!--end nav-->
+    <br>
+    <br>
 
-    <% if notice %>
-      <p id="notice" class="alert alert-info"><%= notice %></p>
-    <% end %>
-
-    <!--
-    <p class="alert"><%= alert %></p>
+      <% if notice %>
+        <p class="notice"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <%= alert %>
+      <% end %>
+      </div>
     
-  -->
-    <% if alert %>
-      <p id="alert" class="alert alert-info"><%= alert %></p>
-    <% end %>
-   
+
   
 
 <%= yield %>

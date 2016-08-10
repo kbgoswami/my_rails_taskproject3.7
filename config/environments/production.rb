@@ -85,4 +85,7 @@ Rails.application.configure do
                      :socket_failure_delay => 0.2
                     }
 
+config.web_socket_server_url = "wss://bikesonsale.herokuapp.com/cable"
+config.action_cable.allowed_request_origins = ['https://bikesonsale.herokuapp.com', 'http://bikesonsale.herokuapp.com']
+
 end
