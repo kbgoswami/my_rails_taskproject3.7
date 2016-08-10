@@ -59,8 +59,8 @@
     <br>
     <br>
 
-      <% if notice %>
-        <p class="notice"><%= notice %></p>
+      <% if flash[:notice] %>
+        <p class="notice"><%= flash[:notice] %></p>
       <% end %>
       <% if alert %>
         <%= alert %>
