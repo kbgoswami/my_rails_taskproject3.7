@@ -8,7 +8,8 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        ActionCable.server.broadcast 'product_channel', comment: @comment
+        #ActionCable.server.broadcast 'product_channel', comment: @comment
+        ProductChannel.broadcast_to @product.id, comment: CommentsController.render(partial: 'comments/comment', locals: {comment: @comment, current_user: current_user})
         format.html { redirect_to @product, notice: 'Review was created successfully.' }
         format.json { render :show, status: :created, location: @product }
         format.js
@@ -23,12 +24,13 @@ class CommentsController < ApplicationController
   
 
 	def destroy
+    if signed_in? && current_user.admin?
     @comment = Comment.find(params[:id])
     product = @comment.product
     @comment.destroy
     redirect_to product
 	end
-
+    end
 
   
 
