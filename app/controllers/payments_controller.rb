@@ -20,6 +20,7 @@ class PaymentsController < ApplicationController
     				:total => @product.price
 
     				)
+          UserMailer.order_payment(@user, @product).deliver_now
   			end
 
          flash[:notice] = "Your payment processed successfully!"

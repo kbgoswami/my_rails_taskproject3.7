@@ -1,0 +1,739 @@
+commit 274ae8233b36528f3c1d777b1bda72ca637d0927
+Author: Esther Villars <esthervillars@gmail.com>
+Date:   Tue Aug 16 11:21:18 2016 -0700
+
+    debug in progress
+
+diff --git a/kulbhushangoswami/my_rails_taskproject3.7/Gemfile b/kulbhushangoswami/my_rails_taskproject3.7/Gemfile
+index 1ba2923..5f2553a 100755
+--- a/kulbhushangoswami/my_rails_taskproject3.7/Gemfile
++++ b/kulbhushangoswami/my_rails_taskproject3.7/Gemfile
+@@ -1,40 +1,40 @@
+ source 'https://rubygems.org'
+ 
+-
+ # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+-#gem 'rails', '4.2.6'
++# gem 'rails', '4.2.6'
+ gem 'rails', '~> 5.0.0'
+ gem 'puma', '~> 3.0'
+ 
+ # Use sqlite3 as the database for Active Record
+ group :production do
+   gem 'rails_12factor'
+- gem 'pg'
++  gem 'pg'
+   gem 'dalli'
+-
+-
+ end
+ 
+ group :development, :test do
+- gem 'sqlite3'
+-   gem 'byebug'
+-   gem "factory_girl_rails", "~> 4.0"
+-    gem 'guard'
+-    gem 'guard-rspec', require: false
+-    #gem 'spork-rails' 
+-    gem 'guard-spork'
+-    # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+-    gem 'spring'
+-    gem 'spring-watcher-listen', '~> 2.0.0'
+-    gem 'listen', '~> 3.0.5'
+-
+-  
++  gem 'sqlite3'
++  gem 'byebug'
++  gem "factory_girl_rails", "~> 4.0"
++  gem 'guard'
++  gem 'guard-rspec', require: false
++  # gem 'spork-rails'
++  gem 'guard-spork'
++  # Spring speeds up development by keeping your application running in the 
++  # background. Read more: https://github.com/rails/spring
++  gem 'spring'
++  gem 'spring-watcher-listen', '~> 2.0.0'
++  gem 'listen', '~> 3.0.5'
+ end
+ 
+ group :development do
+   gem 'rspec-rails', '~> 3.4'
+   # Access an IRB console on exception pages or by using <%= console %> in views
+   gem 'web-console', '~> 2.0'
++  # for debugging
++  gem 'better_errors'
++  gem 'binding_of_caller'
++  gem 'mailcatcher'
+ end
+ 
+ # Use SCSS for stylesheets
+@@ -48,7 +48,8 @@ gem 'coffee-rails', '~> 4.2'
+ 
+ # Use jquery as the JavaScript library
+ gem 'jquery-rails'
+-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
++# Turbolinks makes following links in your web application faster. Read more:
++# https://github.com/rails/turbolinks
+ gem 'turbolinks'
+ # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+ gem 'jbuilder', '~> 2.5'
+@@ -64,9 +65,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
+ # Use Capistrano for deployment
+ # gem 'capistrano-rails', group: :development
+ 
+-
+ gem 'devise'
+-
+ gem 'cancancan'
+ 
+ ## Gemfile for Rails 3+, Sinatra, and Merb
+@@ -74,13 +73,3 @@ gem 'will_paginate', '~> 3.1.0'
+ gem 'stripe'
+ gem 'angularjs-rails'
+ gem 'redis-rails'
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+diff --git a/kulbhushangoswami/my_rails_taskproject3.7/Gemfile.lock b/kulbhushangoswami/my_rails_taskproject3.7/Gemfile.lock
+index 980b617..c6dc675 100755
+--- a/kulbhushangoswami/my_rails_taskproject3.7/Gemfile.lock
++++ b/kulbhushangoswami/my_rails_taskproject3.7/Gemfile.lock
+@@ -41,6 +41,10 @@ GEM
+     angularjs-rails (1.5.6)
+     arel (7.1.1)
+     bcrypt (3.1.11)
++    better_errors (2.1.1)
++      coderay (>= 1.0.0)
++      erubis (>= 2.6.6)
++      rack (>= 0.9.0)
+     binding_of_caller (0.7.2)
+       debug_inspector (>= 0.0.1)
+     builder (3.2.2)
+@@ -57,6 +61,7 @@ GEM
+       execjs
+     coffee-script-source (1.10.0)
+     concurrent-ruby (1.0.2)
++    daemons (1.2.4)
+     dalli (2.7.6)
+     debug_inspector (0.0.2)
+     devise (4.2.0)
+@@ -69,6 +74,7 @@ GEM
+     domain_name (0.5.20160615)
+       unf (>= 0.0.5, < 1.0.0)
+     erubis (2.7.0)
++    eventmachine (1.0.9.1)
+     execjs (2.7.0)
+     factory_girl (4.7.0)
+       activesupport (>= 3.0.0)
+@@ -98,6 +104,8 @@ GEM
+       guard (~> 2.0)
+       guard-compat (~> 1.0)
+       spork (>= 0.8.4)
++    haml (4.0.7)
++      tilt
+     http-cookie (1.0.2)
+       domain_name (~> 0.5)
+     i18n (0.7.0)
+@@ -117,6 +125,16 @@ GEM
+     lumberjack (1.0.10)
+     mail (2.6.4)
+       mime-types (>= 1.16, < 4)
++    mailcatcher (0.2.4)
++      eventmachine
++      haml
++      i18n
++      json
++      mail
++      sinatra
++      skinny (>= 0.1.2)
++      sqlite3-ruby
++      thin
+     method_source (0.8.2)
+     mime-types (3.1)
+       mime-types-data (~> 3.2015)
+@@ -233,6 +251,11 @@ GEM
+       json (~> 1.7, >= 1.7.7)
+       rdoc (~> 4.0)
+     shellany (0.0.1)
++    sinatra (1.0)
++      rack (>= 1.0)
++    skinny (0.2.4)
++      eventmachine (~> 1.0.0)
++      thin (>= 1.5, < 1.7)
+     slop (3.6.0)
+     spork (0.9.2)
+     spring (1.7.2)
+@@ -247,8 +270,14 @@ GEM
+       activesupport (>= 4.0)
+       sprockets (>= 3.0.0)
+     sqlite3 (1.3.11)
++    sqlite3-ruby (1.3.3)
++      sqlite3 (>= 1.3.3)
+     stripe (1.49.0)
+       rest-client (>= 1.4, < 3.0)
++    thin (1.6.2)
++      daemons (>= 1.0.9)
++      eventmachine (>= 1.0.0)
++      rack (>= 1.0.0)
+     thor (0.19.1)
+     thread_safe (0.3.5)
+     tilt (2.0.5)
+@@ -279,6 +308,8 @@ PLATFORMS
+ 
+ DEPENDENCIES
+   angularjs-rails
++  better_errors
++  binding_of_caller
+   byebug
+   cancancan
+   coffee-rails (~> 4.2)
+@@ -291,6 +322,7 @@ DEPENDENCIES
+   jbuilder (~> 2.5)
+   jquery-rails
+   listen (~> 3.0.5)
++  mailcatcher
+   pg
+   puma (~> 3.0)
+   rails (~> 5.0.0)
+diff --git a/kulbhushangoswami/my_rails_taskproject3.7/app/assets/javascripts/channels/product.js b/kulbhushangoswami/my_rails_taskproject3.7/app/assets/javascripts/channels/product.js
+index faadbe4..feaf5de 100755
+--- a/kulbhushangoswami/my_rails_taskproject3.7/app/assets/javascripts/channels/product.js
++++ b/kulbhushangoswami/my_rails_taskproject3.7/app/assets/javascripts/channels/product.js
+@@ -1,10 +1,12 @@
+ App.product = App.cable.subscriptions.create("ProductChannel", {
+   connected: function() {
+     // Called when the subscription is ready for use on the server
++    console.log('ready');
+   },
+ 
+   disconnected: function() {
+     // Called when the subscription has been terminated by the server
++    console.log('disconnected');
+   },
+ 
+   received: function(data) {
+@@ -12,17 +14,20 @@ App.product = App.cable.subscriptions.create("ProductChannel", {
+     $(".alert.alert-info").show();
+     console.log(data);
+     $('.product-reviews').prepend(data.comment);
+-  refreshRating();
++    refreshRating();
+   },
+ 
+   listen_to_comments: function() {
+     return this.perform('listen', {
+-    product_id: $("[data-product-id]").data("product-id")
+-  });
++      product_id: $("[data-product-id]").data("product-id")
++      console.log('$("[data-product-id]").data("product-id")', $("[data-product-id]").data("product-id"))
++    });
++    console.log('this', this)
+ }
+ 
+ });
+ 
+ $(document).on('turbolinks:load', function() {
+   App.product.listen_to_comments();
++  console.log('listen_to_comments')
+ });
+diff --git a/kulbhushangoswami/my_rails_taskproject3.7/app/assets/javascripts/site.js b/kulbhushangoswami/my_rails_taskproject3.7/app/assets/javascripts/site.js
+index f022785..e8af0a0 100755
+--- a/kulbhushangoswami/my_rails_taskproject3.7/app/assets/javascripts/site.js
++++ b/kulbhushangoswami/my_rails_taskproject3.7/app/assets/javascripts/site.js
+@@ -1,4 +1,5 @@
+ $(document).on('turbolinks:load', function(){
++
+     $('.rating').raty( { path: '/assets', scoreName: 'comment[rating]' });
+     $('.rated').raty({ path: '/assets',
+       readOnly: true,
+@@ -127,4 +128,4 @@ $(document).on('turbolinks:load', function(){
+   //-----$(document).ready(function(){
+       
+ 
+- //------});
+\ No newline at end of file
++ //------});
+diff --git a/kulbhushangoswami/my_rails_taskproject3.7/app/channels/application_cable/connection.rb b/kulbhushangoswami/my_rails_taskproject3.7/app/channels/application_cable/connection.rb
+index c31ac70..59e7265 100755
+--- a/kulbhushangoswami/my_rails_taskproject3.7/app/channels/application_cable/connection.rb
++++ b/kulbhushangoswami/my_rails_taskproject3.7/app/channels/application_cable/connection.rb
+@@ -1,24 +1,22 @@
+ module ApplicationCable
+   class Connection < ActionCable::Connection::Base
+-   identified_by :current_user
++    identified_by :current_user
+ 
+-   def connect
+-     self.current_user = find_verified_user
++    def connect
++      self.current_user = find_verified_user
+     end
+ 
+     def disconnect
+-
+     end
+ 
+-  protected
++    protected
+ 
+-   def find_verified_user
+-     if verified_user = request.env['warden'].user
+-         verified_user
+-     else
+-         reject_unauthorized_connection
+-     end
++    def find_verified_user
++      if current_user == request.env['warden'].user
++        current_user
++      else
++        reject_unauthorized_connection
++      end
+     end
+   end
+-
+ end
+diff --git a/kulbhushangoswami/my_rails_taskproject3.7/app/channels/product_channel.rb b/kulbhushangoswami/my_rails_taskproject3.7/app/channels/product_channel.rb
+index bf2b514..8c802e5 100755
+--- a/kulbhushangoswami/my_rails_taskproject3.7/app/channels/product_channel.rb
++++ b/kulbhushangoswami/my_rails_taskproject3.7/app/channels/product_channel.rb
+@@ -1,17 +1,17 @@
+-# Be sure to restart your server when you modify this file. Action Cable runs in a loop that does not support auto reloading.
++# Be sure to restart your server when you modify this file. Action Cable runs 
++# in a loop that does not support auto reloading.
+ class ProductChannel < ApplicationCable::Channel
+   def subscribed
+     # stream_from "some_channel"
+-    #stream_from "product_channel"
++    # stream_from "product_channel"
+   end
+ 
+   def unsubscribed
+     # Any cleanup needed when channel is unsubscribed
+-
+   end
+ 
+   def listen(data)
+-   stop_all_streams
+-   stream_for data["product_id"]
++    stop_all_streams
++    stream_for data['product_id']
+   end
+ end
+diff --git a/kulbhushangoswami/my_rails_taskproject3.7/app/controllers/comments_controller.rb b/kulbhushangoswami/my_rails_taskproject3.7/app/controllers/comments_controller.rb
+index ff50278..6938971 100755
+--- a/kulbhushangoswami/my_rails_taskproject3.7/app/controllers/comments_controller.rb
++++ b/kulbhushangoswami/my_rails_taskproject3.7/app/controllers/comments_controller.rb
+@@ -1,15 +1,17 @@
+-class CommentsController < ApplicationController 
++class CommentsController < ApplicationController
+ 
+- def create
++  def create
+     @product = Product.find(params[:product_id])
+     @comment = @product.comments.new(comment_params)
+-    @comment.user = current_user
+-
++    # @comment.user = current_user
+ 
+     respond_to do |format|
+       if @comment.save
+-        #ActionCable.server.broadcast 'product_channel', comment: @comment
+-        ProductChannel.broadcast_to @product.id, comment: CommentsController.render(partial: 'comments/comment', locals: {comment: @comment, current_user: current_user})
++        # ActionCable.server.broadcast 'product_channel', comment: @comment
++        ProductChannel.broadcast_to @product.id,
++                comment: CommentsController.render(partial: 'comments/comment',
++                          locals: {comment: @comment, current_user: current_user})
++
+         format.html { redirect_to @product, notice: 'Review was created successfully.' }
+         format.json { render :show, status: :created, location: @product }
+         format.js
+@@ -18,26 +20,20 @@ class CommentsController < ApplicationController
+         format.json { render json: @comment.errors, status: :unprocessable_entity }
+       end
+     end
+-   
+- end
+-
+-  
++  end
+ 
+- def destroy
++  def destroy
+     if signed_in? && current_user.admin?
+-    @comment = Comment.find(params[:id])
+-    product = @comment.product
+-    @comment.destroy
+-    redirect_to product
+- end
++      @comment = Comment.find(params[:id])
++      product = @comment.product
++      @comment.destroy
++      redirect_to product
+     end
++  end
+ 
+-  
+-
+- private
++  private
+ 
+   def comment_params
+-    params.require(:comment).permit(:user_id, :body, :rating)
++    params.require(:comment).permit(:user_id, :body, :rating, :product_id)
+   end
+-
+ end
+diff --git a/kulbhushangoswami/my_rails_taskproject3.7/app/controllers/products_controller.rb b/kulbhushangoswami/my_rails_taskproject3.7/app/controllers/products_controller.rb
+index 447e08f..824677d 100755
+--- a/kulbhushangoswami/my_rails_taskproject3.7/app/controllers/products_controller.rb
++++ b/kulbhushangoswami/my_rails_taskproject3.7/app/controllers/products_controller.rb
+@@ -1,32 +1,23 @@
+ class ProductsController < ApplicationController
+   before_action :set_product, only: [:show, :edit, :update, :destroy]
+-  
+-   before_filter :authenticate_user!, except: [:index, :show,]
++  before_action :authenticate_user!, except: [:index, :show]
++
++  respond_to :json, :html
+ 
+   # GET /products
+   # GET /products.json
+-  respond_to :json, :html
+ 
+   def index
+-    
+     if params[:q]
+       search_term = params[:q]
+-      if Rails.env.development?
+-        @products = Product.where("name LIKE ?", "%#{search_term}%")
+-      else
+-        @products = Product.where("name ILIKE ?", "%#{search_term}%")
+-      end
++      @products = Product.where('name LIKE ?', "%#{search_term}%")
++      @products = Product.where('name ILIKE ?', "%#{search_term}%") if Rails.env.production?
+     else
+       @products = Product.all
+     end
+     respond_with @products
+   end
+ 
+-  
+-  # GET /products/1
+-  # GET /products/1.json
+-  
+-
+   # GET /products/new
+   def new
+     @product = Product.new
+@@ -38,14 +29,12 @@ class ProductsController < ApplicationController
+ 
+   # POST /products
+   # POST /products.json
+-
+-
+   def create
+     @product = Product.new(product_params)
+ 
+     respond_to do |format|
+       if @product.save
+-        format.html { redirect_to "/products", notice: 'Product was successfully created.' }
++        format.html { redirect_to products_path, notice: 'Product was successfully created.' }
+         format.json { render :show, status: :created, location: @product }
+       else
+         format.html { render :new }
+@@ -72,11 +61,10 @@ class ProductsController < ApplicationController
+   # DELETE /products/1.json
+ 
+   def show
+-  @comments = @product.comments.order("created_at DESC").paginate(page: params[:page], per_page: 2)
+-    end
++    @comments = @product.comments.order("created_at DESC").paginate(page: params[:page], per_page: 2)
++   end
+ 
+   def destroy
+-     
+     @product.destroy
+     respond_to do |format|
+       format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
+@@ -85,14 +73,14 @@ class ProductsController < ApplicationController
+   end
+ 
+   private
+-    # Use callbacks to share common setup or constraints between actions.
+-    def set_product
+-      @product = Product.find(params[:id])
+-    end
+ 
+-    # Never trust parameters from the scary internet, only allow the white list through.
+-    def product_params
+-      params.require(:product).permit(:name, :description, :price, :image_url, :color)
+-    end
++  # Use callbacks to share common setup or constraints between actions.
++  def set_product
++    @product = Product.find(params[:id])
++  end
+ 
++  # Never trust parameters from the scary internet, only allow the white list through.
++  def product_params
++    params.require(:product).permit(:name, :description, :price, :image_url, :color)
++  end
+ end
+diff --git a/kulbhushangoswami/my_rails_taskproject3.7/app/controllers/user_registrations_controller.rb b/kulbhushangoswami/my_rails_taskproject3.7/app/controllers/user_registrations_controller.rb
+index 02de84e..a4f926a 100755
+--- a/kulbhushangoswami/my_rails_taskproject3.7/app/controllers/user_registrations_controller.rb
++++ b/kulbhushangoswami/my_rails_taskproject3.7/app/controllers/user_registrations_controller.rb
+@@ -1,8 +1,9 @@
+ class UserRegistrationsController < Devise::RegistrationsController
+   def create
+     super
++
+     if @user.persisted?
+       UserMailer.welcome(@user).deliver_now
+     end
+   end
+-end
+\ No newline at end of file
++end
+diff --git a/kulbhushangoswami/my_rails_taskproject3.7/app/mailers/application_mailer.rb b/kulbhushangoswami/my_rails_taskproject3.7/app/mailers/application_mailer.rb
+index 5d18bf6..8f64a1c 100755
+--- a/kulbhushangoswami/my_rails_taskproject3.7/app/mailers/application_mailer.rb
++++ b/kulbhushangoswami/my_rails_taskproject3.7/app/mailers/application_mailer.rb
+@@ -1,4 +1,4 @@
+ class ApplicationMailer < ActionMailer::Base
+-  default from: "kbgoswami@comcast.net"
++  #default from: 'please-change-me-at-config-initializers-devise@example.com'
+   layout 'mailer'
+ end
+diff --git a/kulbhushangoswami/my_rails_taskproject3.7/app/mailers/user_mailer.rb b/kulbhushangoswami/my_rails_taskproject3.7/app/mailers/user_mailer.rb
+index 5d72eb6..36f6c98 100755
+--- a/kulbhushangoswami/my_rails_taskproject3.7/app/mailers/user_mailer.rb
++++ b/kulbhushangoswami/my_rails_taskproject3.7/app/mailers/user_mailer.rb
+@@ -1,17 +1,16 @@
+ class UserMailer < ApplicationMailer
+- default from: "from@example.com"
++
++  # default from: 'please-change-me-at-config-initializers-devise@example.com'
+ 
+   def contact_form(email, name, message)
+-  @message = message
+-    mail(:from => email,
+-        :to => 'kbgoswami@comcast.net',
+-        :subject => "A new contact form message from #{name}")
++    @message = message
++    mail(from: email,
++         to: 'kbgoswami@comcast.net',
++         subject: "A new contact form message from #{name}")
+   end
+ 
+   def welcome(user)
+-   @appname = "Bikesonsale"
+-   mail( :to => user.email,
+-    :subject => "Welcome to #{@appname}!")
++    @appname = 'Bikesonsale'
++    mail(to: user.email, subject: "Welcome to #{@appname}!")
+   end
+-
+ end
+diff --git a/kulbhushangoswami/my_rails_taskproject3.7/app/models/product.rb b/kulbhushangoswami/my_rails_taskproject3.7/app/models/product.rb
+index bc6ad32..314fd3c 100755
+--- a/kulbhushangoswami/my_rails_taskproject3.7/app/models/product.rb
++++ b/kulbhushangoswami/my_rails_taskproject3.7/app/models/product.rb
+@@ -2,7 +2,8 @@ class Product < ActiveRecord::Base
+  has_many :orders
+  has_many :comments
+  validates :name, presence: true
+- def average_rating
+-  comments.average(:rating).to_f
+- end
++
++  def average_rating
++    comments.average(:rating).to_f
++  end
+ end
+diff --git a/kulbhushangoswami/my_rails_taskproject3.7/app/models/user.rb b/kulbhushangoswami/my_rails_taskproject3.7/app/models/user.rb
+index 14d2ed2..199e140 100755
+--- a/kulbhushangoswami/my_rails_taskproject3.7/app/models/user.rb
++++ b/kulbhushangoswami/my_rails_taskproject3.7/app/models/user.rb
+@@ -3,5 +3,6 @@ class User < ActiveRecord::Base
+   # :confirmable, :lockable, :timeoutable and :omniauthable
+   devise :database_authenticatable, :registerable,
+          :recoverable, :rememberable, :trackable, :validatable
+- has_many :orders
++
++  has_many :orders
+ end
+diff --git a/kulbhushangoswami/my_rails_taskproject3.7/app/views/layouts/application.html.erb b/kulbhushangoswami/my_rails_taskproject3.7/app/views/layouts/application.html.erb
+index cb12616..06b7895 100755
+--- a/kulbhushangoswami/my_rails_taskproject3.7/app/views/layouts/application.html.erb
++++ b/kulbhushangoswami/my_rails_taskproject3.7/app/views/layouts/application.html.erb
+@@ -2,15 +2,15 @@
+ <html lang="en">
+ <head>
+   <title>MyRailsTaskproject37</title>
++  <%= action_cable_meta_tag %>
++
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
++
+   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+-  <%= action_cable_meta_tag %>
+ 
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+-
+-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+-   
++  
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <%= csrf_meta_tags %>
+ 
+@@ -51,7 +51,7 @@
+             <li><%= link_to "About", static_pages_about_path %></li>
+             <li><%= link_to "Home", static_pages_index_path %></li>
+             <li><%= link_to "Contact", static_pages_contact_path %></li>
+-            <li><%= link_to "Featured Products", static_pages_landing_page_path %></li>
++            <li><%= link_to "Featured Products", root_path %></li>
+ 
+           </ul>
+          </div><!--end navbar-collapse-->
+diff --git a/kulbhushangoswami/my_rails_taskproject3.7/config/environments/development.rb b/kulbhushangoswami/my_rails_taskproject3.7/config/environments/development.rb
+index 3e80718..653d0fa 100755
+--- a/kulbhushangoswami/my_rails_taskproject3.7/config/environments/development.rb
++++ b/kulbhushangoswami/my_rails_taskproject3.7/config/environments/development.rb
+@@ -42,4 +42,12 @@ Rails.application.configure do
+   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+ 
+   config.app_generators.javascript_engine = :javascript
++
++  config.action_cable.allowed_request_origins = ['http://localhost:3003']
++  # config.action_cable.url = "ws://localhost:3003/cable"
++  config.action_cable.url = "ws://localhost:3003/cable/"
++
++  # mailcatcher
++  config.action_mailer.delivery_method = :smtp
++  config.action_mailer.smtp_settings = { address: 'localhost', port: 1025 }
+ end
+diff --git a/kulbhushangoswami/my_rails_taskproject3.7/config/routes.rb b/kulbhushangoswami/my_rails_taskproject3.7/config/routes.rb
+index 750a1c9..538f9c7 100755
+--- a/kulbhushangoswami/my_rails_taskproject3.7/config/routes.rb
++++ b/kulbhushangoswami/my_rails_taskproject3.7/config/routes.rb
+@@ -1,12 +1,14 @@
+ Rails.application.routes.draw do
+-  devise_for :users, :path => '', :path_names => {:sign_in => 'login', :sign_out => 'logout'}, :controllers => { :registrations => "user_registrations" }
++  devise_for :users, :path => '', :path_names => {:sign_in => 'login', 
++                                                  :sign_out => 'logout'}, 
++                                  :controllers => { :registrations => "user_registrations" }
+   resources :users
+   
+ 
+   resources :products do
+     resources :comments
+   end
+-  
++
+   get 'static_pages/about'
+ 
+   get 'static_pages/contact'
+@@ -19,17 +21,16 @@ Rails.application.routes.draw do
+ 
+   post 'payments/create'
+ 
+-
+-
+   # The priority is based upon order of creation: first created -> highest priority.
+   # See how all your routes lay out with "rake routes".
+ 
+   # You can have the root of your site routed with "root"
+-   root 'static_pages#index'
+-    resources :orders, only: [:index, :show, :create, :destroy]
++  root 'static_pages#index'
+ 
+-   mount ActionCable.server => '/cable'
++  resources :orders, only: [:index, :show, :create, :destroy]
+   
++  mount ActionCable.server => '/cable'
++
+   # Example of regular route:
+   #   get 'products/:id' => 'catalog#view'
+ 
+@@ -78,6 +79,4 @@ Rails.application.routes.draw do
+   #     # (app/controllers/admin/products_controller.rb)
+   #     resources :products
+   #   end
+-  
+-
+ end
+diff --git a/kulbhushangoswami/my_rails_taskproject3.7/db/migrate/20160421025815_add_price_to_products.rb b/kulbhushangoswami/my_rails_taskproject3.7/db/migrate/20160421025815_add_price_to_products.rb
+index af9dff9..1e89bc3 100755
+--- a/kulbhushangoswami/my_rails_taskproject3.7/db/migrate/20160421025815_add_price_to_products.rb
++++ b/kulbhushangoswami/my_rails_taskproject3.7/db/migrate/20160421025815_add_price_to_products.rb
+@@ -1,5 +1,5 @@
+ class AddPriceToProducts < ActiveRecord::Migration
+   def change
+-    add_column :items, :price, :decimal, :precision => 8, :scale => 2
++    add_column :products, :price, :decimal, precision: 8, scale: 2
+   end
+ end
+diff --git a/kulbhushangoswami/my_rails_taskproject3.7/db/schema.rb b/kulbhushangoswami/my_rails_taskproject3.7/db/schema.rb
+index 8400d6c..6eacfa1 100755
+--- a/kulbhushangoswami/my_rails_taskproject3.7/db/schema.rb
++++ b/kulbhushangoswami/my_rails_taskproject3.7/db/schema.rb
+@@ -1,4 +1,3 @@
+-# encoding: UTF-8
+ # This file is auto-generated from the current state of the database. Instead
+ # of editing this file, please use the migrations feature of Active Record to
+ # incrementally modify your database, and then regenerate this schema definition.
+@@ -20,28 +19,26 @@ ActiveRecord::Schema.define(version: 20160606202307) do
+     t.integer  "product_id"
+     t.datetime "created_at", null: false
+     t.datetime "updated_at", null: false
++    t.index ["product_id"], name: "index_comments_on_product_id"
++    t.index ["user_id"], name: "index_comments_on_user_id"
+   end
+ 
+-  add_index "comments", ["product_id"], name: "index_comments_on_product_id"
+-  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
+-
+   create_table "orders", force: :cascade do |t|
+     t.integer "user_id"
+     t.integer "product_id"
+     t.float   "total"
++    t.index ["product_id"], name: "index_orders_on_product_id"
++    t.index ["user_id"], name: "index_orders_on_user_id"
+   end
+ 
+-  add_index "orders", ["product_id"], name: "index_orders_on_product_id"
+-  add_index "orders", ["user_id"], name: "index_orders_on_user_id"
+-
+   create_table "products", force: :cascade do |t|
+     t.string   "name"
+     t.text     "description"
+     t.string   "image_url"
+-    t.datetime "created_at",  null: false
+-    t.datetime "updated_at",  null: false
++    t.datetime "created_at",                          null: false
++    t.datetime "updated_at",                          null: false
+     t.string   "color"
+-    t.integer  "price"
++    t.decimal  "price",       precision: 8, scale: 2
+   end
+ 
+   create_table "users", force: :cascade do |t|
+@@ -60,9 +57,8 @@ ActiveRecord::Schema.define(version: 20160606202307) do
+     t.string   "current_sign_in_ip"
+     t.string   "last_sign_in_ip"
+     t.boolean  "admin",                  default: false, null: false
++    t.index ["email"], name: "index_users_on_email", unique: true
++    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+   end
+ 
+-  add_index "users", ["email"], name: "index_users_on_email", unique: true
+-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+-
+ end

@@ -1,6 +1,6 @@
 require File.expand_path('../boot', __FILE__)
-
-require "rails"
+require_relative 'boot'
+require "rails/all"
 # Pick the frameworks you want:
 require "active_model/railtie"
 require "active_job/railtie"
@@ -35,6 +35,7 @@ module MyRailsTaskproject37
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
     config.cache_store = :redis_store, 'redis://localhost:6379/0/cache'
-    ActiveSupport.halt_callback_chains_on_return_false = false
+    
   end
 end
+ActiveSupport.halt_callback_chains_on_return_false = false
